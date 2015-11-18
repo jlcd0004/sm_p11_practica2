@@ -35,10 +35,22 @@ public class Activity2 extends Activity {
 		this.dir = bundle.getString("dir");
 		this.port = bundle.getString("port");
 
-		usuario.setText(usr);
-		key.setText(pas);
-		IP.setText(dir);
-		puerto.setText(port);
+		int port2 = Integer.parseInt(port);
+
+		try {
+			C_socket con = new C_socket();
+
+			con.conect(dir, port2);
+
+		} catch (Exception e) {
+
+			System.out.println("Error: " + e.getMessage());
+
+		}
+		// usuario.setText(usr);
+		// key.setText(pas);
+		// IP.setText(dir);
+		// puerto.setText(port);
 
 	}
 
