@@ -1,5 +1,8 @@
 package com.practica2;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -35,22 +38,32 @@ public class Activity2 extends Activity {
 		this.dir = bundle.getString("dir");
 		this.port = bundle.getString("port");
 
-		int port2 = Integer.parseInt(port);
+		new Thread(new Runnable() {
+			public void run() {
 
-		try {
-			C_socket con = new C_socket();
+				int port2 = Integer.parseInt(port);
+				C_socket con = new C_socket();
 
-			con.conect(dir, port2);
+				try {
+					con.conect(dir, port2);
+					con.entrada.readLine();
+					String en = con.entrada.readLine();
+					usuario.setText(en);
 
-		} catch (Exception e) {
+				} catch (UnknownHostException e) {
 
-			System.out.println("Error: " + e.getMessage());
+					e.printStackTrace();
+					
+				} catch (IOException e) {
 
-		}
-		// usuario.setText(usr);
-		// key.setText(pas);
-		// IP.setText(dir);
-		// puerto.setText(port);
+					e.printStackTrace();
+				}
+
+			}
+		}).start();
+
+		IP.setText(dir);
+		puerto.setText(port);
 
 	}
 
