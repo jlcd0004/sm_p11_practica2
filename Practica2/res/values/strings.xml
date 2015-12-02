@@ -16,5 +16,10 @@
     <string name="servicio">(Posteriormente se gestionará la conexión a un servicio remoto con estos datos)</string>
     <string name="info">Grado en Ingeniería Telemática, 3º curso</string>
     <string name="grado">Ingeniería Telemática, 3ºcurso</string>
+    <string name="dato">Introduzca los datos:</string>
+    <string name="num1">Número 1:</string>
+    <string name="num2">Número 2:</string>
+    <string name="cuadrado">Al cuadrado</string>
+    <string name="nota">NOTA: Si la casilla \'Al cuadrado\' está marcada, se haran las operaciones con los números al cuadrado.</string>
 
 </resources>

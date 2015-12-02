@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -24,12 +27,7 @@ public class Activity2 extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_2);
-
-		final TextView usuario = (TextView) findViewById(R.id.textView1);
-		final TextView key = (TextView) findViewById(R.id.textView3);
-		final TextView IP = (TextView) findViewById(R.id.textView4);
-		final TextView puerto = (TextView) findViewById(R.id.textView5);
+		setContentView(R.layout.activity_2);		
 
 		Bundle bundle = getIntent().getExtras();
 
@@ -37,23 +35,35 @@ public class Activity2 extends Activity {
 		this.pas = bundle.getString("pas");
 		this.dir = bundle.getString("dir");
 		this.port = bundle.getString("port");
+		
+		FragmentManager fragmentManager2 = getFragmentManager();
+		FragmentTransaction transaction2 = fragmentManager2.beginTransaction();
+		
+		Fragmento_user f_user = new Fragmento_user();
+		Fragmento_opera f_opera = new Fragmento_opera();
+		Fragment frag_u = fragmentManager2.findFragmentById(R.id.contain2);
+		Fragment frag_o = fragmentManager2.findFragmentById(R.id.contain);
+		if (frag_u == null && frag_o == null) {
+		transaction2.add(R.id.contain2, f_user);
+		transaction2.add(R.id.contain, f_opera);
+		transaction2.commit();
+		}
 
 		new Thread(new Runnable() {
 			public void run() {
-
-				int port2 = Integer.parseInt(port);
-				C_socket con = new C_socket();
-
 				try {
+					int port2 = Integer.parseInt(port);
+					C_socket con = new C_socket();
+
 					con.conect(dir, port2);
 					con.entrada.readLine();
 					String en = con.entrada.readLine();
-					usuario.setText(en);
+					
 
 				} catch (UnknownHostException e) {
 
 					e.printStackTrace();
-					
+
 				} catch (IOException e) {
 
 					e.printStackTrace();
@@ -62,9 +72,7 @@ public class Activity2 extends Activity {
 			}
 		}).start();
 
-		IP.setText(dir);
-		puerto.setText(port);
-
+		
 	}
 
 }

@@ -25,8 +25,8 @@ public class Fragmento_sesion extends Fragment {
 			Bundle savedInstanceState) {
 		View v = i.inflate(R.layout.fragmento_sesion, c, false);
 		Button bot = (Button) v.findViewById(R.id.button2);
-		final EditText user = (EditText) v.findViewById(R.id.editText1);
-		final EditText pass = (EditText) v.findViewById(R.id.editText2);
+		final EditText user = (EditText) v.findViewById(R.id.numero1);
+		final EditText pass = (EditText) v.findViewById(R.id.numero2);
 		final EditText ip = (EditText) v.findViewById(R.id.editText3);
 		final EditText port = (EditText) v.findViewById(R.id.editText4);
 		bot.setOnClickListener(new View.OnClickListener() {
