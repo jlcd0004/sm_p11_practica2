@@ -36,20 +36,7 @@ public class Activity2 extends Activity {
 		this.dir = bundle.getString("dir");
 		this.port = bundle.getString("port");
 		
-		FragmentManager fragmentManager2 = getFragmentManager();
-		FragmentTransaction transaction2 = fragmentManager2.beginTransaction();
-		
-		Fragmento_user f_user = new Fragmento_user();
-		Fragmento_opera f_opera = new Fragmento_opera();
-		Fragment frag_u = fragmentManager2.findFragmentById(R.id.contain2);
-		Fragment frag_o = fragmentManager2.findFragmentById(R.id.contain);
-		if (frag_u == null && frag_o == null) {
-		transaction2.add(R.id.contain2, f_user);
-		transaction2.add(R.id.contain, f_opera);
-		transaction2.commit();
-		}
-
-		new Thread(new Runnable() {
+		/*new Thread(new Runnable() {
 			public void run() {
 				try {
 					int port2 = Integer.parseInt(port);
@@ -70,9 +57,15 @@ public class Activity2 extends Activity {
 				}
 
 			}
-		}).start();
+		}).start();*/
+		
+		
+		
+		}
+
+		
 
 		
 	}
 
-}
+

@@ -1,5 +1,6 @@
 package com.practica2;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Fragmento_sesion extends Fragment {
 
@@ -31,18 +33,23 @@ public class Fragmento_sesion extends Fragment {
 		final EditText port = (EditText) v.findViewById(R.id.editText4);
 		bot.setOnClickListener(new View.OnClickListener() {
 
+			@SuppressLint("NewApi")
 			public void onClick(View view) {
 				String us = user.getText().toString();
 				String key = pass.getText().toString();
 				String dir = ip.getText().toString();
 				String puerto = port.getText().toString();
+				//if(!us.isEmpty() && !key.isEmpty() && !dir.isEmpty() && !puerto.isEmpty()){
 				Intent i = new Intent(view.getContext(), Activity2.class);
 				i.putExtra("usr", us);
 				i.putExtra("pas", key);
 				i.putExtra("dir", dir);
 				i.putExtra("port", puerto);
 				startActivity(i);
-			}
+				//}
+				}
+			
+			
 
 		});
 		return v;

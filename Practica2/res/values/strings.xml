@@ -21,5 +21,9 @@
     <string name="num2">Número 2:</string>
     <string name="cuadrado">Al cuadrado</string>
     <string name="nota">NOTA: Si la casilla \'Al cuadrado\' está marcada, se haran las operaciones con los números al cuadrado.</string>
+    <string name="sum">Suma:</string>
+    <string name="mul">Resta:</string>
+    <string name="mult">Multiplicación:</string>
+    <string name="def">0</string>
 
 </resources>
