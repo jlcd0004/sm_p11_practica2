@@ -2,6 +2,7 @@ package com.practica2;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -39,17 +40,26 @@ public class Fragmento_sesion extends Fragment {
 				String key = pass.getText().toString();
 				String dir = ip.getText().toString();
 				String puerto = port.getText().toString();
-				//if(!us.isEmpty() && !key.isEmpty() && !dir.isEmpty() && !puerto.isEmpty()){
-				Intent i = new Intent(view.getContext(), Activity2.class);
-				i.putExtra("usr", us);
-				i.putExtra("pas", key);
-				i.putExtra("dir", dir);
-				i.putExtra("port", puerto);
-				startActivity(i);
-				//}
+				
+				if (!us.isEmpty() && !key.isEmpty() && !dir.isEmpty()
+						&& !puerto.isEmpty()) {
+					
+					Intent i = new Intent(view.getContext(), Activity2.class);
+					i.putExtra("usr", us);
+					i.putExtra("pas", key);
+					i.putExtra("dir", dir);
+					i.putExtra("port", puerto);
+					startActivity(i);
+					
+				} else {
+
+					Toast er_vacio = Toast.makeText(getActivity(),
+							"Rellena todos los apartados", Toast.LENGTH_SHORT);
+
+					er_vacio.show();
 				}
-			
-			
+
+			}
 
 		});
 		return v;
