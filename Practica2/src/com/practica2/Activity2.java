@@ -2,6 +2,7 @@ package com.practica2;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -20,6 +21,10 @@ public class Activity2 extends Activity {
 	String pas;
 	String dir;
 	String port;
+	String o;
+	String o2;
+	int suma, resta, multi;
+	final C_socket con = new C_socket();
 
 	/**
 	 * Este método se ejecuta al iniciar 'activity_2',se obtienen los datos de
@@ -40,45 +45,17 @@ public class Activity2 extends Activity {
 		this.pas = bundle.getString("pas");
 		this.dir = bundle.getString("dir");
 		this.port = bundle.getString("port");
-
+		final int port2 = Integer.parseInt(port);
 		new Thread(new Runnable() {
 			public void run() {
 				try {
-					int port2 = Integer.parseInt(port);
-					final C_socket con = new C_socket();
 
 					con.conect(dir, port2);
+					con.entrada.readUTF();
 					con.salida.writeBytes("usr " + usr + "\r\n");
 					con.salida.writeBytes("pas " + pas + "\r\n");
-
-					ImageButton bot = (ImageButton) findViewById(R.id.imageButton1);
-
-					bot.setOnClickListener(new View.OnClickListener() {
-						public void onClick(View v) {
-							try {
-								CheckBox cuadr = (CheckBox) findViewById(R.id.checkBox1);
-								EditText num1 = (EditText) findViewById(R.id.editText1);
-								EditText num2 = (EditText) findViewById(R.id.editText2);
-								if (!cuadr.isChecked()) {
-
-									con.salida.writeBytes("opera "
-											+ num1.getText() + " "
-											+ num2.getText() + "\r\n");
-
-								} else {
-									con.salida.writeBytes("opera2 "
-											+ num1.getText() + " "
-											+ num2.getText() + "\r\n");
-
-								}
-
-							} catch (IOException e) {
-
-								e.printStackTrace();
-							}
-						}
-					});
-
+					String a = con.entrada.readUTF();
+					String b = con.entrada.readUTF();
 				} catch (UnknownHostException e) {
 
 					e.printStackTrace();
@@ -90,6 +67,72 @@ public class Activity2 extends Activity {
 
 			}
 		}).start();
+		ImageButton bot = (ImageButton) findViewById(R.id.imageButton1);
+
+		bot.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				new Thread(new Runnable() {
+					public void run() {
+						try {
+							CheckBox cuadr = (CheckBox) findViewById(R.id.checkBox1);
+							EditText num1 = (EditText) findViewById(R.id.editText1);
+							EditText num2 = (EditText) findViewById(R.id.editText2);
+							final TextView sum = (TextView) findViewById(R.id.textView5);
+							final TextView mul = (TextView) findViewById(R.id.textView6);
+							final TextView res = (TextView) findViewById(R.id.textView7);
+							if (!cuadr.isChecked()) {
+
+								con.salida.writeBytes("opera " + num1.getText()
+										+ " " + num2.getText() + "\r\n");
+
+								o = con.entrada.readUTF();
+								 Scanner scan = new Scanner(o);
+								 scan.nextLine();
+								suma = scan.nextInt();
+								scan.nextLine();
+								multi = scan.nextInt();
+								scan.nextLine();
+								resta = scan.nextInt();
+								scan.nextLine();
+							} else {
+								con.salida.writeBytes("opera2 "
+										+ num1.getText() + " " + num2.getText()
+										+ "\r\n");
+
+								o2 = con.entrada.readUTF();
+								Scanner scan2 = new Scanner(o);
+								 scan2.nextLine();
+								suma = scan2.nextInt();
+								scan2.nextLine();
+								multi = scan2.nextInt();
+								scan2.nextLine();
+								resta = scan2.nextInt();
+								scan2.nextLine();
+							}
+							sum.post(new Runnable() {
+								public void run() {
+									sum.setText(suma);
+								}
+							});
+							mul.post(new Runnable() {
+								public void run() {
+									mul.setText(multi);
+								}
+							});
+							res.post(new Runnable() {
+								public void run() {
+									res.setText(resta);
+								}
+							});
+						} catch (IOException e) {
+
+							e.printStackTrace();
+						}
+					}
+				}).start();
+
+			}
+		});
 
 	}
 

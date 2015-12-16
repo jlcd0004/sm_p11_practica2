@@ -23,4 +23,5 @@ public class C_socket {
 		entrada = new DataInputStream(sc.getInputStream());
 
 	}
+	
 }
