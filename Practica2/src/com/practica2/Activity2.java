@@ -23,7 +23,9 @@ public class Activity2 extends Activity {
 	String port;
 	String o;
 	String o2;
-	int suma, resta, multi;
+	String suma;
+	String resta;
+	String multi;
 	final C_socket con = new C_socket();
 
 	/**
@@ -86,28 +88,28 @@ public class Activity2 extends Activity {
 										+ " " + num2.getText() + "\r\n");
 
 								o = con.entrada.readUTF();
-								 Scanner scan = new Scanner(o);
-								 scan.nextLine();
-								suma = scan.nextInt();
-								scan.nextLine();
-								multi = scan.nextInt();
-								scan.nextLine();
-								resta = scan.nextInt();
-								scan.nextLine();
+
+								Scanner scan = new Scanner(o);
+								scan.next();
+								suma = scan.next();
+								scan.next();
+								multi = scan.next();
+								scan.next();
+								resta = scan.next();
+
 							} else {
 								con.salida.writeBytes("opera2 "
 										+ num1.getText() + " " + num2.getText()
 										+ "\r\n");
 
 								o2 = con.entrada.readUTF();
-								Scanner scan2 = new Scanner(o);
-								 scan2.nextLine();
-								suma = scan2.nextInt();
-								scan2.nextLine();
-								multi = scan2.nextInt();
-								scan2.nextLine();
-								resta = scan2.nextInt();
-								scan2.nextLine();
+								Scanner scan2 = new Scanner(o2);
+								scan2.next();
+								suma = scan2.next();
+								scan2.next();
+								multi = scan2.next();
+								scan2.next();
+								resta = scan2.next();
 							}
 							sum.post(new Runnable() {
 								public void run() {
