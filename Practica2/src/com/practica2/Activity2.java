@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Activity2 extends Activity {
 	String usr;
@@ -26,38 +29,34 @@ public class Activity2 extends Activity {
 	String suma;
 	String resta;
 	String multi;
+
 	final C_socket con = new C_socket();
 
-	/**
-	 * Este método se ejecuta al iniciar 'activity_2',se obtienen los datos de
-	 * 'fragmento_sesion' con el método 'getString' de la clase 'Bundle' y se
-	 * presentan al usuario los datos obtenidos de los campos de escritura de
-	 * 'fragmento_sesion' con el método 'setText'. Posteriormente se gestionara
-	 * una conexión a un servicio remoto con estos datos.
-	 * 
-	 * */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.activity_2);
 
 		Bundle bundle = getIntent().getExtras();
 
+		Button cerrar = (Button) findViewById(R.id.cerrar);
 		this.usr = bundle.getString("usr");
 		this.pas = bundle.getString("pas");
 		this.dir = bundle.getString("dir");
 		this.port = bundle.getString("port");
 		final int port2 = Integer.parseInt(port);
+
 		new Thread(new Runnable() {
 			public void run() {
 				try {
-
 					con.conect(dir, port2);
 					con.entrada.readUTF();
 					con.salida.writeBytes("usr " + usr + "\r\n");
 					con.salida.writeBytes("pas " + pas + "\r\n");
 					String a = con.entrada.readUTF();
 					String b = con.entrada.readUTF();
+
 				} catch (UnknownHostException e) {
 
 					e.printStackTrace();
@@ -134,6 +133,24 @@ public class Activity2 extends Activity {
 				}).start();
 
 			}
+		});
+
+		cerrar.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View view) {
+				Intent i = new Intent(view.getContext(), MainActivity.class);
+				try {
+
+					con.sc.close();
+					
+				} catch (IOException e) {
+
+					e.printStackTrace();
+				}
+				startActivity(i);
+
+			}
+
 		});
 
 	}

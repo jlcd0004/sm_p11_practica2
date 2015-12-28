@@ -16,11 +16,13 @@ public class C_socket {
 
 	public void conect(String HOST, int PUERTO) throws UnknownHostException,
 			IOException {
-
+		boolean serv;
 		sc = new Socket(HOST, PUERTO);
 
 		salida = new DataOutputStream(sc.getOutputStream());
 		entrada = new DataInputStream(sc.getInputStream());
+		 serv = sc.isConnected();
+		
 
 	}
 	

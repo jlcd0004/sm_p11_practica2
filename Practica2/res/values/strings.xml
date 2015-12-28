@@ -25,5 +25,8 @@
     <string name="mul">Resta:</string>
     <string name="mult">Multiplicación:</string>
     <string name="def">0</string>
+    <string name="server">server</string>
+    <string name="Salir">Salir</string>
+    <string name="Cerrar">Cerrar Sesión</string>
 
 </resources>
